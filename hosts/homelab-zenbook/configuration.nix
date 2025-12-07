@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -13,6 +12,13 @@
   # Options
   custom.laptop = true;
   custom.media = true;
+
+  # Uni Parking. This just needs to run on some host
+  services.apcoabot = {
+    enable = true;
+    startTime = "07:45";
+    configFile = "/run/secrets/apcoa_json";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
