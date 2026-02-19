@@ -1,16 +1,14 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./hardware-configuration.nix
   ];
 
-  # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
-  boot.loader.grub.enable = false;
-  # Enables the generation of /boot/extlinux/extlinux.conf
-  boot.loader.generic-extlinux-compatible.enable = true;
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  users.users.nixos.hashedPassword = "$y$j9T$kdsgkfbxh5jBakV5fSJ/x.$lax1VHF9rrQ9vXmv6zXL2BhO1zCouS3rI6ShjhHGmxC";
-
-  custom.wireguard = true;
+  users.users.nixos.hashedPassword = "$y$j9T$34zgPEP/8EJQk4h/P3Hqs0$4SF2QpFXOUCkQwwxVyKNwU8lX4QBgc/AzOM4zQZA/5D";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -18,5 +16,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }

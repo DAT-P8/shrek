@@ -9,30 +9,26 @@
     apcoabot.url = "github:Bliztle/apcoabot";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    deploy-rs,
-    sops-nix,
-    flake-utils,
-    apcoabot,
-    ...
-  }: let
-    nodes = [
-      {
-        hostname = "homelab-zenbook";
-        ssh_hostname = "10.0.0.8";
-        system = "x86_64-linux";
-        role = "server";
-      }
-      {
-        hostname = "homelab-pi";
-        ssh_hostname = "10.0.0.6";
-        system = "aarch64-linux";
-        role = "agent";
-      }
-    ];
-  in
+  outputs =
+    {
+      self,
+      nixpkgs,
+      deploy-rs,
+      sops-nix,
+      flake-utils,
+      apcoabot,
+      ...
+    }:
+    let
+      nodes = [
+        {
+          hostname = "manfred";
+          ssh_hostname = "10.0.0.8";
+          system = "x86_64-linux";
+          role = "server";
+        }
+      ];
+    in
     {
       # --- Top-level nixosConfigurations ---
       nixosConfigurations = builtins.listToAttrs (
@@ -44,15 +40,13 @@
             };
             system = node.system;
             modules = [
-              ./options.nix
               ./hosts/${node.hostname}/configuration.nix
               ./configuration.nix
               sops-nix.nixosModules.sops
               apcoabot.nixosModules.default
             ];
           };
-        })
-        nodes
+        }) nodes
       );
 
       # --- Top-level deploy-rs config ---
@@ -69,15 +63,16 @@
               path = deploy-rs.lib.${node.system}.activate.nixos self.nixosConfigurations.${node.hostname};
             };
           };
-        })
-        nodes
+        }) nodes
       );
     }
     # --- System-dependent outputs ---
     // flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = import nixpkgs {inherit system;};
-      in {
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
         devShell = pkgs.mkShell {
           buildInputs = [
             deploy-rs.packages.${system}.deploy-rs
