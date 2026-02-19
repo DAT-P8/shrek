@@ -1,13 +1,13 @@
 {
   pkgs,
   meta,
-  # lib,
-  # config,
   ...
 }:
 {
   imports = [
+    ./modules/cloudflared.nix
     ./modules/desktop.nix
+    ./modules/jupyter.nix
     ./modules/neovim.nix
     ./modules/shell.nix
   ];
@@ -54,9 +54,9 @@
   console.keyMap = "dk-latin1";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nixos = {
+  users.users.manfred = {
     isNormalUser = true;
-    description = "nixos";
+    description = "manfred";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -82,6 +82,17 @@
     btop
     git
     pam_u2f # General purpose pam u2f. Enough for yubikey 2fa
+    ripgrep
+    bat
+    eza
+    tldr
+    cloudflared
+    firefox
+    (python3.withPackages (
+      python-pkgs: with python-pkgs; [
+        jupyterlab
+      ]
+    ))
   ];
 
   # Enable the OpenSSH daemon.
