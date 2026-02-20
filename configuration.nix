@@ -99,5 +99,7 @@
   networking.firewall.allowedTCPPorts = [
     80 # HTTP
     443 # HTTPS
+    3000 # shrek ports
+    22 # shrek ports
   ];
 }
