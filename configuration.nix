@@ -61,14 +61,6 @@
       "media"
     ];
     packages = with pkgs; [ ];
-    openssh.authorizedKeys.keys = [
-      # Added this as deployment prompts yubikey 4 times per host
-      # Yubikeys
-      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBNdyTSPteztylzzDebHqctbDo/XmoYI10JAkh+M0sSlevcvZbtFWID10D8Be89xFIHohLBk39i8nzTVbLAjP5IoAAAAEc3NoOg== yubikey-station"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKZr8Sjw7Bab9e7/8SEnrVJp48PwIOarYLQsstwacFQaAAAABHNzaDo= yubikey-float"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH3tQUrCi3I5hRkS1zeQ93nlo7o+5Xx0ZcoE0wxdtHXF bliztle@framework"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7qNRrY3q4/D2V/Ef4S7TJtcELcjpSG/bbrF/HRCM6x bliztle@omen"
-    ];
   };
 
   # Allow unfree packages
@@ -90,10 +82,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    KbdInteractiveAuthentication = false;
-  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
