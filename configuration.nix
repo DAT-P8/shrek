@@ -84,6 +84,8 @@
     eza
     tldr
     firefox
+    wireguard-tools
+    netcat-gnu
   ];
 
   # Enable the OpenSSH daemon.
