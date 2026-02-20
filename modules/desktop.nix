@@ -20,7 +20,7 @@
 
   # NVidia support. Taken straight from my desktop configuration.
   hardware.nvidia = {
-    open = false; # use closed source
+    open = true; # use closed source
     modesetting.enable = true; # something something better with wayland
     nvidiaSettings = true; # config menu `nvidia-settings`
   };
