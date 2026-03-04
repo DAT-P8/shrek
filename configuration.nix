@@ -80,6 +80,12 @@
     netcat-gnu
   ];
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
